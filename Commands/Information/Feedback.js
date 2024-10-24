@@ -35,7 +35,7 @@ module.exports = {
               },
               {
                 name: "Usuário",
-                value: `**${interaction.user.tag}**`
+                value: `**${interaction.user.username}**`
               },
               {
                 name: "Sugestão",
