@@ -1,8 +1,11 @@
 const { ApplicationCommandType, EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { KickLang } = require('../../Language/kickLang.js');
+const Guild = require('../../Schema/servers.js');
+
 
 module.exports = {
     name: 'kick',
-    description: "Kick someone from the server",
+    description: "❌ Kick someone from the server",
     type: ApplicationCommandType.ChatInput,
     options: [
         {
@@ -22,8 +25,18 @@ module.exports = {
     botPerms: ['KickMembers'],
     ownerOnly: false,
     run: async (client, interaction) => {
+        const guildData = await Guild.findOne({ guildID: interaction.guild.id });
+
+        if (guildData === null) {
+            console.log('Nenhuma configuração encontrada para o servidor.');
+            return;
+          }
+
+        const language = KickLang[guildData.language]
+        const channelId = interaction.guild.channels.cache.get(interaction.channel.id);
+
         const user = interaction.options.getUser('username');
-        const reason = interaction.options.getString('reason') || 'No reason provided';
+        const reason = interaction.options.getString('reason') || `${language.noReason}`;
 
         const serverName = interaction.guild.name;
         const serverIcon = interaction.guild.iconURL();
@@ -32,28 +45,28 @@ module.exports = {
 
         if (!member) {
             const noMember = new EmbedBuilder()
-					.setDescription(`This user is not a member of the server.`)
+					.setDescription(language.userNotMember)
 					.setColor('Red')
             return interaction.reply({ embeds: [ noMember ], ephemeral: true });
         }
 
         if (interaction.user.id === member.id) {
             const yourselfKick = new EmbedBuilder()
-					.setDescription(`You cannot kick \`Yourself\`.`)
+					.setDescription(language.cannotKickYourself)
 					.setColor('Red')
             return interaction.reply({ embeds: [yourselfKick], ephemeral: true})
         }
 
         if (!interaction.member.permissions.has('KickMembers')) {
             const noPerm = new EmbedBuilder()
-					.setDescription(`You don't have \`permission\` to use this command.`)
+					.setDescription(language.noPermission)
 					.setColor('Red')
             return interaction.reply({ embeds: [noPerm], ephemeral: true });
         }
 
         if (member.permissions.has('Administrator')) {
             const kickAdm = new EmbedBuilder()
-					.setDescription(`You cannot kick an \`Administrator\`.`)
+					.setDescription(language.cannotKickAdmin)
 					.setColor('Red')
             return interaction.reply({ embeds: [kickAdm], ephemeral: true });
         }
@@ -62,33 +75,44 @@ module.exports = {
             await member.kick(reason);
 
             const kick_embed = new EmbedBuilder()
-                .setTitle(`${user.username} has been kicked from the server`)
-                .setDescription(`**Reason**: ${reason}`)
+                .setTitle(`${user.username} ${language.kickSuccessTitle}`)
+                .setDescription(`${language.kickSuccessDescription} ${reason}`)
                 .setColor('#990000')
                 .setThumbnail(client.user.displayAvatarURL())
                 .addFields(
                     { name: "User:", value: `${user.tag}` },
-                    { name: "Action:", value: "Kicked from the server" }
+                    { name: `${language.action}`, value: `${language.actionText}` }
                 )
                 .setTimestamp();
 
             const kick_embed_DM = new EmbedBuilder()
-                .setTitle(`You has been kicked from ${serverName}`)
-                .setDescription(`**Reason**: ${reason}`)
+                .setTitle(`${language.kickEmbedDMTitle} ${serverName}`)
+                .setDescription(`${language.kickEmbedDMReason} ${reason}`)
                 .setColor('#990000')
                 .setThumbnail(serverIcon)
                 .addFields(
                     { name: "**User:**", value: `${user.tag}` },
-                    { name: "**Action:**", value: "Kicked from the server" },
-                    { name: "**Kicked by:**", value: `${interaction.user.tag}`}
+                    { name: `${language.action}`, value: `${language.actionText}` },
+                    { name: `${language.kickEmbedDMKickedBy}`, value: `${interaction.user.tag}`}
                 )
                 .setTimestamp();
 
             interaction.reply({ embeds: [kick_embed], ephemeral: true });
             member.send({ embeds: [kick_embed_DM]})
+
+            const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
+            const embedLog = new EmbedBuilder()
+                .setTitle(`${language.logEmbedTitle}`)
+                .setDescription(`**${interaction.user}** ${language.logEmbedDesc} <#${channelId.id}> ${language.logEmbedDesc2} **${user.tag}**`)
+                .setColor('#990000')
+                .setThumbnail(client.user.displayAvatarURL())
+                .setTimestamp();
+            
+            if (logChannel) logChannel.send({ embeds: [embedLog] })
+
         } catch (error) {
             console.error(error);
-            interaction.reply({ content: "I couldn't kick this user. Make sure I have the right permissions.", ephemeral: true });
+            interaction.reply({ content: `${language.permissionError}`, ephemeral: true });
         }
     }
 };
