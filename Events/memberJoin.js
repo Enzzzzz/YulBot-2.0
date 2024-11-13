@@ -20,7 +20,7 @@ client.on("guildMemberAdd", async (member) => {
         if (welcomeChannel) {
           const embed = new EmbedBuilder()
             .setColor('#00ff00')
-            .setTitle(`${language.welcomeTitle}, @${member.user.username}`)
+            .setTitle(`${language.welcomeTitle}, ${member.user.globalName}`)
             .setDescription(language.welcomeDescription)
             .setThumbnail(member.user.displayAvatarURL())
             .setTimestamp();
