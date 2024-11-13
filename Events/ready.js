@@ -1,14 +1,16 @@
 const client = require('..');
 const chalk = require('chalk');
 const ms = require('ms')
-const { MongoClient } = require('mongodb');
-const uri = process.env.DATABASE
+const mongoose = require('mongoose');
+const DATABASE = process.env.DATABASE
 
 
-const Mongo = new MongoClient(uri);
 async function connectToDatabase() {
 	try {
-	  await Mongo.connect();
+	  await mongoose.connect(DATABASE, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	  });
 	  console.log(chalk.green('Conectado ao banco de dados'));
 	} catch (err) {
 	  console.error(chalk.red('Erro ao conectar ao banco de dados:', err));
@@ -17,11 +19,9 @@ async function connectToDatabase() {
 connectToDatabase();
 
 async function saveServerConfig(guildId, config) {
-	const database = Mongo.db('Yulbot');
-	const collection = database.collection('Data');
-  
+	const Guild = require('../Schema/servers');
 	try {
-	  await collection.updateOne({ guildId }, { $set: config }, { upsert: true });
+	  await Guild.updateOne({ guildID: guildId }, { $set: config }, { upsert: true });
 	  console.log('Configurações salvas com sucesso.');
 	} catch (err) {
 	  console.error(chalk.red('Erro ao salvar configurações:'), err);
@@ -29,16 +29,37 @@ async function saveServerConfig(guildId, config) {
   }
   
   async function getServerConfig(guildId) {
-	const database = Mongo.db('Yulbot');
-	const collection = database.collection('Data');
-  
+	const Guild = require('../Schema/servers');
 	try {
-	  const config = await collection.findOne({ guildId });
+	  const config = await Guild.findOne({ guildID: guildId });
 	  return config;
 	} catch (err) {
 	  console.error(chalk.red('Erro ao obter configurações:'), err);
 	}
   }
+
+client.on('guildCreate', async (guild) => {
+    console.log(chalk.yellow(`Bot entrou no servidor: ${guild.name} (${guild.id})`));
+
+    const existingConfig = await getServerConfig(guild.id);
+
+    if (!existingConfig) {
+        const defaultConfig = {
+            guildId: guild.id,
+            guildName: guild.name,
+            welcomeChannelID: null,
+            memberCountChannelID: null,
+            language: 'en',
+            logChannelID: null,
+            autoChannels: []
+        };
+
+        await saveServerConfig(guild.id, defaultConfig);
+        console.log(chalk.green(`Configurações padrão salvas para o servidor: ${guild.name}`));
+    } else {
+        console.log(chalk.blue(`Servidor já registrado no banco de dados: ${guild.name}`));
+    }
+});
 
 const activities_list = [
 	`Online em ${client.guilds.cache.size} servidores`,  
