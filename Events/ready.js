@@ -62,9 +62,14 @@ client.on('guildCreate', async (guild) => {
 });
 
 const activities_list = [
-	`Online em ${client.guilds.cache.size} servidores`,  
+	`Online em ${client.guilds.cache.size} servidores`,
+	`Online on ${client.guilds.cache.size} servers`,  
 	`Digite /help para ver meus comandos`,
-	`Veja meus comandos Slash {/}`, 
+	`Type /help for see my commands`,
+	`Veja meus comandos Slash {/}`,
+	`See my SlashCommands {/}`,
+	`Working on multiple languages`,
+	`Funcionando em múltiplas linguagens`,
 	];
 
 client.on("ready", () => {
