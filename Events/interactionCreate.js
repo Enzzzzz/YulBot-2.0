@@ -18,7 +18,7 @@ client.on('interactionCreate', async interaction => {
 		if (slashCommand.userPerms || slashCommand.botPerms) {
 			if (!interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.userPerms || []))) {
 				const userPerms = new EmbedBuilder()
-					.setDescription(`You dont have  \`${slashCommand.userPerms}\``)
+					.setDescription(`You dont have permission \`${slashCommand.userPerms}\``)
 					.setColor('Red')
 				return interaction.reply({ embeds: [userPerms], ephemeral: true })
 			}
