@@ -1,24 +1,24 @@
 {
   "name": "yulbot",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Base/Template YulBot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Enzzzzz#6007",
+  "author": "Enzzzzz",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/rest": "^1.3.0",
-    "axios": "^1.2.1",
+    "@discordjs/rest": "^2.4.0",
+    "axios": "^1.7.7",
     "chalk": "^2.4.1",
-    "discord-api-types": "^0.37.53",
-    "discord.js": "^14.6.0",
-    "dotenv": "^16.0.3",
+    "discord-api-types": "^0.37.103",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5",
     "esm": "^3.2.25",
-    "mongodb": "^6.3.0",
+    "mongodb": "^6.10.0",
     "ms": "^2.1.3",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.3.0"
   }
 }

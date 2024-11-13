@@ -1,5 +1,6 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const client = require('../index');
+const { InteractionCreateLang } = require('../Language/interactionCreateLang.js');
 
 client.on('interactionCreate', async interaction => {
 	const slashCommand = client.slashCommands.get(interaction.commandName);
@@ -17,7 +18,7 @@ client.on('interactionCreate', async interaction => {
 		if (slashCommand.userPerms || slashCommand.botPerms) {
 			if (!interaction.memberPermissions.has(PermissionsBitField.resolve(slashCommand.userPerms || []))) {
 				const userPerms = new EmbedBuilder()
-					.setDescription(`Você não possui a permissão \`${slashCommand.userPerms}\``)
+					.setDescription(`You dont have  \`${slashCommand.userPerms}\``)
 					.setColor('Red')
 				return interaction.reply({ embeds: [userPerms], ephemeral: true })
 			}

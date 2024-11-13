@@ -1,10 +1,12 @@
 const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
-const axios = require('axios')
+const axios = require('axios');
+const { guildOnly } = require('./Util/test');
 
 module.exports = {
     name: 'gif',
     description: "[🔎] Vou procurar um Gif para você! 🟢",
     type: ApplicationCommandType.ChatInput,
+    guildOnly: false,
     options: [
         {
           name: "gif",
