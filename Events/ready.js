@@ -51,6 +51,7 @@ client.on('guildCreate', async (guild) => {
             memberCountChannelID: null,
             language: 'en',
             logChannelID: null,
+			levelChannelID: null,
             autoChannels: []
         };
 

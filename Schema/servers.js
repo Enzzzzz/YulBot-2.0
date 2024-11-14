@@ -25,6 +25,10 @@ const guildSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    levelChannelID: {
+        type: String,
+        default: null
+    },
     autoChannels: {
         type: [String],
         default: []

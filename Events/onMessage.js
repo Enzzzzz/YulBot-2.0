@@ -1,7 +1,7 @@
 const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const client = require('..');
 
-const usuariosAutorizados = ['706206133324480572'];
+const usuariosAutorizados = [''];
 
 client.on("messageCreate", async (message) => {
     if (message.guild && !message.author.bot) {
@@ -13,7 +13,7 @@ client.on("messageCreate", async (message) => {
     }
         if (containsLink(message.content)) {
             const embed = new EmbedBuilder()
-            .setTitle("Aviso 1/3")
+            .setTitle("Aviso")
             .setDescription("Você recebeu uma advertência por enviar um link sem permissão! ")
             .setThumbnail(message.guild.iconURL())
             .setTimestamp()
@@ -29,5 +29,17 @@ client.on("messageCreate", async (message) => {
 
 function containsLink(text) {
     const linkRegex = /(http(s)?:\/\/[^\s]+)/gi;
-    return linkRegex.test(text);
-  }
+    const discordRegex = /discord\.com/gi;
+    const tenorRegex = /tenor\.com/gi;
+
+    if (linkRegex.test(text)) {
+        if (discordRegex.test(text)) {
+            return false;
+        }
+        if (tenorRegex.test(text)) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
