@@ -22,6 +22,10 @@ module.exports = {
               name: "Português",
               value: "pt"
             },
+            {
+              name: "Chinese",
+              value: "cn"
+            },
           ]
         }
     ],

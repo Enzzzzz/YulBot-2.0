@@ -1,6 +1,5 @@
 const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 const axios = require('axios');
-const { guildOnly } = require('./Util/test');
 
 module.exports = {
     name: 'gif',
