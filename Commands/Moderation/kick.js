@@ -103,7 +103,7 @@ module.exports = {
             const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
             const embedLog = new EmbedBuilder()
                 .setTitle(`${language.logEmbedTitle}`)
-                .setDescription(`**${interaction.user}** ${language.logEmbedDesc} <#${channelId.id}> ${language.logEmbedDesc2} **${user.tag}**`)
+                .setDescription(`**${interaction.user}** ${language.logEmbedDesc} <#${channelId.id}>.\n${language.logEmbedDesc2} **${user.tag}**`)
                 .setColor('#990000')
                 .setThumbnail(client.user.displayAvatarURL())
                 .setTimestamp();

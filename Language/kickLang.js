@@ -16,7 +16,7 @@ const KickLang = {
       actionText: "Kicked from the server",
       logEmbedTitle: "/Kick Command Used",
       logEmbedDesc: "used the /kick command in the channel:",
-      logEmbedDesc2: "and kicked:"
+      logEmbedDesc2: "Kicked User:"
     },
     pt: {
       description: "Expulsar alguém do servidor",
@@ -35,7 +35,26 @@ const KickLang = {
       actionText: "Kickado do servidor.",
       logEmbedTitle: "/Kick Comando usado",
       logEmbedDesc: "usou o comando /kick no canal:",
-      logEmbedDesc2: "e kickou:"
+      logEmbedDesc2: "Usuário Expulso:"
+    },
+    cn: {
+      description: "从服务器踢人",
+      userNotMember: "此用户不是服务器的成员。",
+      cannotKickYourself: "你不能踢`自己`。",
+      noPermission: "你没有`权限`使用此命令。",
+      cannotKickAdmin: "你不能踢`管理员`。",
+      kickSuccessTitle: "已被踢出服务器",
+      kickSuccessDescription: "**原因**: ",
+      kickEmbedDMTitle: "你已被踢出",
+      kickEmbedDMReason: "**原因**: ",
+      kickEmbedDMKickedBy: "**被踢出者**: ",
+      permissionError: "我无法踢出此用户。请确保我拥有正确的权限。",
+      noReason: "没有提供原因。",
+      action: "**动作:**",
+      actionText: "被踢出服务器",
+      logEmbedTitle: "/Kick 命令已使用",
+      logEmbedDesc: "在频道中使用了 /kick 命令：",
+      logEmbedDesc2: "被驱逐的用户："
     },
   };
   
