@@ -3,20 +3,15 @@ const { ChatLockLang } = require("../../Language/chatLockLang.js");
 const Guild = require("../../Schema/servers.js");
 
 module.exports = {
-  name: "lock",
-  description: "Lock a channel.",
+  name: "unlock",
+  description: "Unock a channel.",
   type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "channel",
-      description: "Lock this channel",
+      description: "Unlock this channel",
       type: ApplicationCommandOptionType.Channel,
       channelTypes: [ChannelType.GuildText],
-    },
-    {
-      name: "reason",
-      description: "Lock reason",
-      type: ApplicationCommandOptionType.String,
     },
   ],
   userPerms: ["ManageChannels"],
@@ -34,30 +29,16 @@ module.exports = {
     const channelId = interaction.guild.channels.cache.get(interaction.channel.id);
 
     const channel = interaction.options.getChannel("channel") || interaction.channel;
-    const reason = interaction.options.getString("reason") || language.lockReason;
 
     await channel.permissionOverwrites.edit(interaction.guild.id, {
-      [PermissionsBitField.Flags.SendMessages]: false,
+      [PermissionsBitField.Flags.SendMessages]: true,
     });
 
-    const adminRole = interaction.guild.roles.cache.find((role) =>
-      role.permissions.has(PermissionsBitField.Flags.Administrator)
-    );
-
-    if (adminRole) {
-      await channel.permissionOverwrites.edit(adminRole.id, {
-        [PermissionsBitField.Flags.SendMessages]: true,
-      });
-    }
 
     const embed = new EmbedBuilder()
-      .setTitle(language.lockEmbedTitle)
-      .setDescription(language.lockEmbedDesc)
+      .setTitle(language.unlockEmbedTitle)
+      .setDescription(language.unlockEmbedDesc)
       .setColor("#FF0000")
-      .addFields({
-        name: `${language.lockEmbedReason}`,
-        value: `${reason}`,
-      })
       .setTimestamp();
 
     const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
@@ -73,6 +54,6 @@ module.exports = {
     if (logChannel) logChannel.send({ embeds: [embedLog] });
 
     await channel.send({ embeds: [embed] });
-    await interaction.reply({ content: `${language.lockEmbedTitle}`, ephemeral: true})
+    await interaction.reply({ content: `${language.unlockEmbedTitle}`, ephemeral: true})
   },
 };

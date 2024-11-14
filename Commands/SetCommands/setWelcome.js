@@ -20,6 +20,7 @@ module.exports = {
     run: async (client, interaction) => {
         const channel = interaction.options.getChannel('channelid')
         const guildData = await Guild.findOne({ guildID: interaction.guild.id });
+        const channelId = interaction.guild.channels.cache.get(interaction.channel.id);
 
         const language = WelcomeLang[guildData.language]
         if (!channel) {
@@ -42,10 +43,23 @@ module.exports = {
             guildData.welcomeChannelID = channel.id;
             await guildData.save();
 
-            return interaction.reply({
-                content: `${language.success} <#${channel.id}>.`,
-                ephemeral: true
-            });
+            const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
+
+            const embed = new EmbedBuilder()
+                .setTitle(`${language.success} <#${channel.id}>`)
+                .setColor('#00FFFF')
+                .setTimestamp();
+
+            const embedLog = new EmbedBuilder()
+                .setTitle(`${language.logEmbedTitle}`)
+                .setDescription(`**${interaction.user}** ${language.logEmbedDesc} <#${channelId.id}>`)
+                .setColor('#9930FF')
+                .setThumbnail(client.user.displayAvatarURL())
+                .setTimestamp();
+
+            if (logChannel) logChannel.send({ embeds: [embedLog] })
+
+            return interaction.reply({ embeds: [embed], ephemeral: true})
         } catch (error) {
             console.error('Erro ao atualizar o canal:', error);
             return interaction.reply({

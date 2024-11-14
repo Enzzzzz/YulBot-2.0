@@ -41,6 +41,7 @@ module.exports = {
             await guildData.save();
 
             const levelChannel = interaction.guild.channels.cache.get(guildData.levelChannelID);
+            const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
 
             const embed = new EmbedBuilder()
                 .setTitle(`${language.success} <#${channel.id}>`)
@@ -57,6 +58,7 @@ module.exports = {
                 .setTimestamp();
             
             if (levelChannel) levelChannel.send({ embeds: [embedLog] })
+            if (logChannel) logChannel.send({ embeds: [embedLog] })
 
             return interaction.reply({
                 embeds: [embed],
