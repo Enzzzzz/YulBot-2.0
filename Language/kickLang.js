@@ -33,6 +33,9 @@ const KickLang = {
       noReason: "Nenhum motivo informado.",
       action: "**Ação:*",
       actionText: "Kickado do servidor.",
+      logEmbedTitle: "/Kick Comando usado",
+      logEmbedDesc: "usou o comando /kick no canal:",
+      logEmbedDesc2: "e kickou:"
     },
   };
   
