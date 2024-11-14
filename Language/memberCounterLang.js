@@ -9,6 +9,11 @@ const MemberCounterLang = {
         channel2Name: "Gerenciado por Yul",
         site: "www.yulbot.vercel.app",
     },
+    cn: {
+        channelName: "成员数量:", 
+        channel2Name: "由 Yul 管理", 
+        site: "www.yulbot.vercel.app", 
+    },
   };
   module.exports = { MemberCounterLang };
   
