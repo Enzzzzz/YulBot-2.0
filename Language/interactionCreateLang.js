@@ -1,15 +1,18 @@
 const InteractionCreateLang = {
   en: {
-    welcomeTitle: "Welcome to the server",
-    welcomeDescription: "We hope you enjoy our server.",
+    userPerm: "You don't have permission",
+    botPerm: "I don't have permission",
+    ownerOnly: "Only my owner can execute this command.",
   },
   pt: {
-    welcomeTitle: "Bem-vindo ao servidor,",
-    welcomeDescription: "Esperamos que você aproveite o nosso servidor.",
+    userPerm: "Você não tem permissão",
+    botPerm: "Eu não tenho permissão",
+    ownerOnly: "Apenas meu dono pode executar este comando.",
   },
   cn: {
-    welcomeTitle: "欢迎来到服务器",
-    welcomeDescription: "希望你喜欢我们的服务器。",
+    userPerm: "你没有权限",
+    botPerm: "我没有权限",
+    ownerOnly: "只有我的主人可以执行此命令。",
   }
 };
 

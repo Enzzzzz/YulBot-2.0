@@ -24,7 +24,7 @@ client.on('interactionCreate', async interaction => {
 			}
 			if (!interaction.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(slashCommand.botPerms || []))) {
 				const botPerms = new EmbedBuilder()
-					.setDescription(`Eu não possuo a permissão \`${slashCommand.botPerms}\``)
+					.setDescription(`I dont have permission \`${slashCommand.botPerms}\``)
 					.setColor('Red')
 				return interaction.reply({ embeds: [botPerms], ephemeral: true })
 			}
@@ -35,7 +35,7 @@ client.on('interactionCreate', async interaction => {
 			if (!process.env.OWNER.includes(interaction.user.id)) {
 
 				return interaction.reply({
-					content: `Apenas meu dono pode executar esse comando!`,
+					content: `Only my owner can execute this command.`,
 					ephemeral: true
 				});
 			}
