@@ -19,7 +19,17 @@ const LevelLang = {
         logEmbedDesc: "usou o comando /setlevel no canal:",
         levelUpEmbed: "Acabou de subir para o nível",
     },
+    cn: {
+        success: "等级频道设置为",
+        desc: "现在，每个成员的升级信息将发送到",
+        noChannel: "您没有提供有效的频道。",
+        notFound: "未找到此服务器的设置。",
+        invalidChannel: "您提供的频道无效。",
+        logEmbedTitle: "/SetLevel 命令已使用",
+        logEmbedDesc: "在频道中使用了/setlevel 命令：",
+        levelUpEmbed: "刚刚升到等级",
+    },
   };
   
-  module.exports = { LevelLang };
+module.exports = { LevelLang };
   
