@@ -28,9 +28,8 @@ module.exports = {
     userPerms: ['ManageChannels'],
     run: async (client, interaction) => {
         const selectedLanguage = interaction.options.getString('language')
-        const guildData = await Guild.findOne({ guildID: interaction.guild.id });     
-        
-
+        const guildData = await Guild.findOne({ guildID: interaction.guild.id });
+        const channelId = interaction.guild.channels.cache.get(interaction.channel.id);
 
         const guildId = interaction.guild.id;
         await Guild.findOneAndUpdate(
@@ -47,6 +46,16 @@ module.exports = {
                 .setColor('#9930FF')
                 .setThumbnail(client.user.displayAvatarURL())
                 .setTimestamp();
+
+        const logChannel = interaction.guild.channels.cache.get(guildData.logChannelID);
+        const embedLog = new EmbedBuilder()
+                .setTitle(`${language.logEmbedTitle}`)
+                .setDescription(`**${interaction.user}** ${language.logEmbedDesc} <#${channelId.id}>`)
+                .setColor('#9930FF')
+                .setThumbnail(client.user.displayAvatarURL())
+                .setTimestamp();
+            
+            if (logChannel) logChannel.send({ embeds: [embedLog] })
 
         interaction.reply({ embeds: [embed] })
     }
