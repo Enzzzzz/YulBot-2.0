@@ -17,7 +17,16 @@ const LogLang = {
         logEmbedTitle: "Comando /SetLog Usado",
         logEmbedDesc: "usou o comando /setlog no canal:",
     },
+    cn: {
+        success: "日志频道设置为",
+        desc: "现在，每个管理命令或重要操作将记录在",
+        noChannel: "您没有提供有效的频道。",
+        notFound: "未找到此服务器的设置。",
+        invalidChannel: "您提供的频道无效。",
+        logEmbedTitle: "/SetLog 命令已使用",
+        logEmbedDesc: "在频道中使用了/setlog 命令：",
+    },
   };
-  
-  module.exports = { LogLang };
+
+module.exports = { LogLang };
   

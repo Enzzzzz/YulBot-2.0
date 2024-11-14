@@ -13,6 +13,13 @@ const WelcomeLang = {
         notFound: "Nenhuma configuração encontrada para este servidor.",
         invalidChannel: "O canal fornecido é inválido.",
     },
+    cn: {
+        cmdDesc: "⚒️ 设置欢迎信息频道",
+        success: "欢迎频道已设置为",
+        noChannel: "您没有提供有效的频道。",
+        notFound: "未找到此服务器的设置。",
+        invalidChannel: "您提供的频道无效。",
+    },
   };
   
   
