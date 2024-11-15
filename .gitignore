@@ -2,3 +2,5 @@
 .env
 /Templates
 .gitignore
+discloud.config
+requirements.txt

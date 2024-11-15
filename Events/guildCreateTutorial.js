@@ -1,12 +1,18 @@
 const client = require('..');
-const { EmbedBuilder, PermissionsBitField } = require('discord.js')
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const Guild = require('../Schema/servers.js');
-const GuildCreateTutorialLang = require('../Language/guildCreateTutorialLang.js')
+const TutorialLang = require('../Language/TutorialLang.js');
 
 client.on('guildCreate', async (guild) => {
     try {
 
-        const language = GuildCreateTutorialLang[guildData.language]
+
+        const guildData = await Guild.findOne({ guildID: guild.id });
+            if (guildData === null) {
+                console.log("Nenhuma configuração encontrada para o servidor.");
+                return;
+            }
+        const language = TutorialLang.TutorialLang[guildData.language]
 
         const tutorialChannel = await guild.channels.create({
             name: 'config-tutorial',
